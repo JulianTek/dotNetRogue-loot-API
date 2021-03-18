@@ -8,8 +8,8 @@ namespace dotNetRogueLootAPI.Models
     public class WeaponManager
     {
         private readonly Random _rnd = new Random();
-        private EffectGenerator _effectGenerator = new EffectGenerator();
-        private List<WeaponRarity> rarities = new List<WeaponRarity>()
+        private readonly EffectGenerator _effectGenerator = new EffectGenerator();
+        private readonly List<WeaponRarity> _rarities = new List<WeaponRarity>()
         {
             new WeaponRarity("Common", 66, 1, 0),
             new WeaponRarity("Uncommon", 19, 1.5, 0),
@@ -18,7 +18,7 @@ namespace dotNetRogueLootAPI.Models
             new WeaponRarity("Mythical", 1, 5, 4)
         };
 
-        private List<WeaponType> types = new List<WeaponType>()
+        private readonly List<WeaponType> _types = new List<WeaponType>()
         {
             new WeaponType("Sword", 10, 10),
             new WeaponType("Greatsword", 30, 2),
@@ -36,31 +36,34 @@ namespace dotNetRogueLootAPI.Models
 
         public WeaponRarity GenerateRarity()
         {
-            int rarityNum = _rnd.Next(1, 101);
+            // Converting it to a list will make tweaking values a lot easier, since I won't have to make any changes here
+            var rarityChances = _rarities.Select(rarity => rarity.AppearChance).ToList();
 
-            if (rarityNum <= 66)
+            var rarityNum = _rnd.Next(1, 101);
+
+            if (rarityNum <= rarityChances[0])
             {
-                return this.rarities[0];
+                return _rarities[0];
             }
-            else if (rarityNum <= 85)
+            if (rarityNum <= rarityChances[1])
             {
-                return rarities[1];
+                return _rarities[1];
             }
-            else if (rarityNum <= 95)
+            if (rarityNum <= rarityChances[2])
             {
-                return rarities[2];
+                return _rarities[2];
             }
-            else if (rarityNum <= 99)
+            if (rarityNum <= rarityChances[3])
             {
-                return rarities[3];
+                return _rarities[3];
             }
 
-            return rarities[4];
+            return _rarities[4];
         }
 
         public WeaponType GenerateWeaponType()
         {
-            return types[_rnd.Next(0, 5)];
+            return _types[_rnd.Next(0, 5)];
         }
 
         public Dictionary<string, double> GenerateStats(WeaponType type)
