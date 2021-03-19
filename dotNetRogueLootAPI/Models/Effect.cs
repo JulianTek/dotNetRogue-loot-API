@@ -7,7 +7,7 @@ namespace dotNetRogueLootAPI.Models
 {
     public class Effect
     {
-        public Effect(string effectName, string weaponNameFix, double bonusDamage, double bonusHealing, double extraHits)
+        public Effect(string effectName, string weaponNameFix, int bonusDamage, int bonusHealing, int extraHits)
         {
             EffectName = effectName;
             WeaponNameFix = weaponNameFix;
@@ -18,8 +18,8 @@ namespace dotNetRogueLootAPI.Models
 
         public string EffectName { get; private set; }
         public string WeaponNameFix { get; private set; }
-        public double BonusDamage { get; private set; }
-        public double BonusHealing { get; private set; }
-        public double ExtraHits { get; private set; }
+        public int BonusDamage { get; private set; }
+        public int BonusHealing { get; private set; }
+        public int ExtraHits { get; private set; }
     }
 }
