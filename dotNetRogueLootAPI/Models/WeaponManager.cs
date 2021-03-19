@@ -68,10 +68,15 @@ namespace dotNetRogueLootAPI.Models
 
         public Dictionary<string, double> GenerateStats(WeaponType type)
         {
+            // Defense is a number between 1 and 50, when damage calculations are run these will be seen as a percentile reduction
+            // Currently still a random number, with everything getting equal chances. Eventually I want to make better rarity tied to better stats
             Dictionary<string, double> stats = new Dictionary<string, double>()
             {
                 {"Attack", type.Damage + _rnd.Next(-5, 6) },
-                {"Dodge", type.DodgeChance + _rnd.Next(-5, 4) }
+                {"Dodge", type.DodgeChance + _rnd.Next(-5, 4) },
+                {"Speed", _rnd.Next(10, 29) },
+                {"Defense", _rnd.Next(1, 51)},
+                {"Coolness", _rnd.Next(4) }
             };
             return stats;
         }
