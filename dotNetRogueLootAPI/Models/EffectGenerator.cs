@@ -11,16 +11,21 @@ namespace dotNetRogueLootAPI.Models
 
         public List<Effect> GenerateEffects(int numberOfEffects, double rarityMul)
         {
-            List<Effect> effects = new List<Effect>();
+            var effects = new List<Effect>();
             // The numbers here are temporary while I figure out the balancing
-            for (int i = 0; i < numberOfEffects; i++)
+            for (var i = 0; i < numberOfEffects; i++)
             {
-                GenerateEffect(rarityMul);
+                var effect = GenerateEffect(rarityMul);
+                if (ValidateEffectIsUnique(effects, effect))
+                {
+                    effects.Add(effect);
+                }
             }
 
             return effects;
         }
 
+        // For now, use static values; possibly add higher base values with higher rarities
         public Effect GenerateEffect(double rarityMultiplier)
         {
             var bonusDamage = (int)Math.Round(_rnd.Next(1, 10) * rarityMultiplier);
@@ -55,6 +60,16 @@ namespace dotNetRogueLootAPI.Models
                 default:
                     throw new Exception("No such effect name exists");
             }
+        }
+
+        public bool ValidateEffectIsUnique(List<Effect> effects, Effect generatedEffect)
+        {
+            foreach (var effect in effects)
+            {
+                return effect.BonusDamage != generatedEffect.BonusDamage || effect.BonusHealing != generatedEffect.BonusHealing || effect.ExtraHits != generatedEffect.ExtraHits;
+            }
+
+            return false;
         }
     }
 }

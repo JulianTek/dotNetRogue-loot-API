@@ -31,7 +31,7 @@ namespace dotNetRogueLootAPI.Models
         {
             WeaponType type = GenerateWeaponType();
             WeaponRarity rarity = GenerateRarity();
-            return new Weapon("test", GenerateStats(type), rarity, _effectGenerator.GenerateEffects(rarity.AmountOfEffects, rarity.StatModMul));
+            return new Weapon("test", GenerateStats(type), rarity, _effectGenerator.GenerateEffects(_rnd.Next(rarity.AmountOfEffects, rarity.AmountOfEffects + 3), rarity.StatModMul));
         }
 
         public WeaponRarity GenerateRarity()
