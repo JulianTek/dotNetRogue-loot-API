@@ -2,30 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotNetRogueLootAPI.Models.Interfaces;
 
 namespace dotNetRogueLootAPI.Models
 {
     public class WeaponManager
     {
+        public WeaponManager(IWeaponRarityRepository rarity, IWeaponTypeRepository type)
+        {
+            _rarities = rarity.GetAllRarities().ToList();
+            _types = type.GetAllTypes().ToList();
+        }
+
         private readonly Random _rnd = new Random();
         private readonly EffectGenerator _effectGenerator = new EffectGenerator();
-        private readonly List<WeaponRarity> _rarities = new List<WeaponRarity>()
-        {
-            new WeaponRarity("Common", 66, 1, 0),
-            new WeaponRarity("Uncommon", 19, 1.5, 0),
-            new WeaponRarity("Rare", 10, 2, 1),
-            new WeaponRarity("Legendary", 4, 3.3, 2),
-            new WeaponRarity("Mythical", 1, 5, 4)
-        };
+        private readonly List<WeaponRarity> _rarities;
 
-        private readonly List<WeaponType> _types = new List<WeaponType>()
-        {
-            new WeaponType("Sword", 10, 10),
-            new WeaponType("Greatsword", 30, 2),
-            new WeaponType("Bow", 15, 20),
-            new WeaponType("Crossbow", 25,15),
-            new WeaponType("Battleaxe", 35, 1)
-        };
+        private readonly List<WeaponType> _types;
 
         public Weapon GenerateWeapon()
         {
