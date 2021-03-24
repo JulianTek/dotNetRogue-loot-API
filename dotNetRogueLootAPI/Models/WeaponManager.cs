@@ -31,7 +31,7 @@ namespace dotNetRogueLootAPI.Models
         {
             WeaponType type = GenerateWeaponType();
             WeaponRarity rarity = GenerateRarity();
-            return new Weapon("test", GenerateStats(type), rarity, _effectGenerator.GenerateEffects(rarity.AmountOfEffects, rarity.StatModMul));
+            return new Weapon("test", GenerateStats(type, rarity.StatModMul), rarity, _effectGenerator.GenerateEffects(rarity.AmountOfEffects, rarity.StatModMul));
         }
 
         public WeaponRarity GenerateRarity()
@@ -66,14 +66,14 @@ namespace dotNetRogueLootAPI.Models
             return _types[_rnd.Next(0, 5)];
         }
 
-        public Dictionary<string, double> GenerateStats(WeaponType type)
+        public Dictionary<string, double> GenerateStats(WeaponType type, double raritymul)
         {
             // Defense is a number between 1 and 50, when damage calculations are run these will be seen as a percentile reduction
             // Currently still a random number, with everything getting equal chances. Eventually I want to make better rarity tied to better stats
             Dictionary<string, double> stats = new Dictionary<string, double>()
             {
-                {"Attack", type.Damage + _rnd.Next(-5, 6) },
-                {"Dodge", type.DodgeChance + _rnd.Next(-5, 4) },
+                {"Attack", (int)Math.Round(type.Damage + _rnd.Next(-5, 6) * raritymul) },
+                {"Dodge", (int)Math.Round(type.DodgeChance + _rnd.Next(-5, 4) * raritymul) },
                 {"Speed", _rnd.Next(10, 29) },
                 {"Defense", _rnd.Next(1, 51)},
                 {"Coolness", _rnd.Next(4) }
