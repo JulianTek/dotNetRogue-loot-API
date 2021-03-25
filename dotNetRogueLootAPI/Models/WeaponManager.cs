@@ -22,9 +22,12 @@ namespace dotNetRogueLootAPI.Models
 
         public Weapon GenerateWeapon()
         {
-            WeaponType type = GenerateWeaponType();
-            WeaponRarity rarity = GenerateRarity();
-            return new Weapon("test", GenerateStats(type, rarity.StatModMul), rarity, _effectGenerator.GenerateEffects(rarity.AmountOfEffects, rarity.StatModMul));
+            var type = GenerateWeaponType();
+            var rarity = GenerateRarity();
+            var stats = GenerateStats(type, rarity.StatModMul);
+            return new Weapon("test", stats, rarity,
+                _effectGenerator.GenerateEffects(rarity.AmountOfEffects, rarity.StatModMul),
+                GeneratePrice(stats["Coolness"], rarity.StatModMul, rarity.AmountOfEffects));
         }
 
         public WeaponRarity GenerateRarity()
@@ -59,11 +62,11 @@ namespace dotNetRogueLootAPI.Models
             return _types[_rnd.Next(0, 5)];
         }
 
-        public Dictionary<string, double> GenerateStats(WeaponType type, double raritymul)
+        public Dictionary<string, int> GenerateStats(WeaponType type, double raritymul)
         {
             // Defense is a number between 1 and 50, when damage calculations are run these will be seen as a percentile reduction
             // Currently still a random number, with everything getting equal chances. Eventually I want to make better rarity tied to better stats
-            Dictionary<string, double> stats = new Dictionary<string, double>()
+            var stats = new Dictionary<string, int>()
             {
                 {"Attack", (int)Math.Round(type.Damage + _rnd.Next(-5, 6) * raritymul) },
                 {"Dodge", (int)Math.Round(type.DodgeChance + _rnd.Next(-5, 4) * raritymul) },
@@ -72,6 +75,14 @@ namespace dotNetRogueLootAPI.Models
                 {"Coolness", _rnd.Next(4) }
             };
             return stats;
+        }
+
+        public int GeneratePrice(int coolness, double raritymul, int amountOfEffects)
+        {
+            var basePrice =(int) Math.Round(_rnd.Next(10, 20) * raritymul);
+            var modifiedPrice = basePrice * _rnd.Next(1, amountOfEffects);
+
+            return modifiedPrice * coolness;
         }
     }
 }
