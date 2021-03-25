@@ -25,7 +25,7 @@ namespace dotNetRogueLootAPI.Models
             var type = GenerateWeaponType();
             var rarity = GenerateRarity();
             var stats = GenerateStats(type, rarity.StatModMul);
-            return new Weapon("test", stats, rarity,
+            return new Weapon("test", type, stats, rarity,
                 _effectGenerator.GenerateEffects(rarity.AmountOfEffects, rarity.StatModMul),
                 GeneratePrice(stats["Coolness"], rarity.StatModMul, rarity.AmountOfEffects));
         }
@@ -59,7 +59,7 @@ namespace dotNetRogueLootAPI.Models
 
         public WeaponType GenerateWeaponType()
         {
-            return _types[_rnd.Next(0, 5)];
+            return _types[_rnd.Next(0, _types.Count - 1)];
         }
 
         public Dictionary<string, int> GenerateStats(WeaponType type, double raritymul)
@@ -72,7 +72,7 @@ namespace dotNetRogueLootAPI.Models
                 {"Dodge", (int)Math.Round(type.DodgeChance + _rnd.Next(-5, 4) * raritymul) },
                 {"Speed", _rnd.Next(10, 29) },
                 {"Defense", _rnd.Next(1, 51)},
-                {"Coolness", _rnd.Next(4) }
+                {"Coolness", _rnd.Next(1, 4) }
             };
             return stats;
         }
@@ -80,9 +80,15 @@ namespace dotNetRogueLootAPI.Models
         public int GeneratePrice(int coolness, double raritymul, int amountOfEffects)
         {
             var basePrice =(int) Math.Round(_rnd.Next(10, 20) * raritymul);
-            var modifiedPrice = basePrice * _rnd.Next(1, amountOfEffects);
+            if (amountOfEffects > 1)
+            {
+                var modifiedPrice = basePrice * _rnd.Next(1, amountOfEffects);
+                return modifiedPrice * coolness;
+            }
 
-            return modifiedPrice * coolness;
+            return basePrice * coolness;
+
+
         }
     }
 }
