@@ -30,7 +30,7 @@ namespace dotNetRogueLootAPI.Models
         public WeaponRarity GenerateRarity()
         {
             // Converting it to a list will make tweaking values a lot easier, since I won't have to make any changes here
-            var rarityChances = _rarities.Select(rarity => rarity.AppearChance).ToList();
+            var rarityChances = _rarities.Select(rarity => rarity.AppearChance).OrderBy(chance => chance).ToList();
 
             var rarityNum = _rnd.Next(1, 101);
 
@@ -38,15 +38,15 @@ namespace dotNetRogueLootAPI.Models
             {
                 return _rarities[0];
             }
-            if (rarityNum <= rarityChances[1])
+            if (rarityNum <= rarityChances[1] + rarityChances[0])
             {
                 return _rarities[1];
             }
-            if (rarityNum <= rarityChances[2])
+            if (rarityNum <= rarityChances[2] + rarityChances[1] + rarityChances[0])
             {
                 return _rarities[2];
             }
-            if (rarityNum <= rarityChances[3])
+            if (rarityNum <= rarityChances[3] + rarityChances[2] + rarityChances[1] + rarityChances[0])
             {
                 return _rarities[3];
             }
