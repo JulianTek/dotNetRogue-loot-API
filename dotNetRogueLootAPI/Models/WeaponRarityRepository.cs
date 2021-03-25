@@ -8,6 +8,11 @@ namespace dotNetRogueLootAPI.Models
 {
     public class WeaponRarityRepository : IWeaponRarityRepository
     {
+
+        public WeaponRarityRepository(AppDbContext context)
+        {
+            _context = context;
+        }
         private readonly AppDbContext _context;
 
         public IEnumerable<WeaponRarity> GetAllRarities()
