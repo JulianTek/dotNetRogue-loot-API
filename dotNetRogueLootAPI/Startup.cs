@@ -32,6 +32,7 @@ namespace dotNetRogueLootAPI
             services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WeaponsDb")));
             services.AddScoped<IWeaponTypeRepository, WeaponTypeRepository>();
             services.AddScoped<IWeaponRarityRepository, WeaponRarityRepository>();
+            services.AddScoped<IEffectRepository, EffectRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,9 +13,9 @@ namespace dotNetRogueLootAPI.Controllers
     public class WeaponController : ControllerBase
     {
 
-        public WeaponController(IWeaponRarityRepository rarity, IWeaponTypeRepository type)
+        public WeaponController(IWeaponRarityRepository rarity, IWeaponTypeRepository type, IEffectRepository effect)
         {
-            _weaponManager = new WeaponManager(rarity, type);
+            _weaponManager = new WeaponManager(rarity, type, effect);
         }
         private readonly WeaponManager _weaponManager;
 

@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotNetRogueLootAPI.Models.Interfaces;
 
 namespace dotNetRogueLootAPI.Models
 {
     public class EffectGenerator
     {
+        public EffectGenerator(IEffectRepository effectRepository)
+        {
+            _effectRepository = effectRepository;
+        }
         private readonly Random _rnd = new Random();
+        private readonly IEffectRepository _effectRepository;
 
         public List<Effect> GenerateEffects(int numberOfEffects, double rarityMul)
         {
@@ -20,6 +26,10 @@ namespace dotNetRogueLootAPI.Models
                 {
                     effects.Add(effect);
                 }
+                else
+                {
+                    i--;
+                }
             }
 
             return effects;
@@ -28,48 +38,31 @@ namespace dotNetRogueLootAPI.Models
         // For now, use static values; possibly add higher base values with higher rarities
         public Effect GenerateEffect(double rarityMultiplier)
         {
-            var bonusDamage = (int)Math.Round(_rnd.Next(1, 10) * rarityMultiplier);
-            var extraHits = _rnd.Next(0, 3);
-            var bonusHealing = (int) Math.Round(_rnd.Next(0, 10) * rarityMultiplier);
-            var name = GenerateEffectName(extraHits, bonusHealing);
-            return new Effect(name, GenerateEffectPrefix(name), bonusDamage, bonusHealing, extraHits);
-        }
-
-        public string GenerateEffectName(int extraHits, int bonusHeal)
-        {
-            if (bonusHeal != 0)
-            {
-                return extraHits > 0 ? "Poison Lifesteal" : "Lifesteal";
-            }
-
-            return extraHits > 0 ? "Poison" : "Powerful";
-        }
-
-        public string GenerateEffectPrefix(string effectName)
-        {
-            switch (effectName)
-            {
-                case "Poison Lifesteal":
-                    return "poisonous life stealing";
-                case "Lifesteal":
-                    return "life stealing";
-                case "Poison":
-                    return "poisonous";
-                case "Powerful":
-                    return "powerful";
-                default:
-                    throw new Exception("No such effect name exists");
-            }
+            var effectList = _effectRepository.GetEffects().ToList();
+            var baseEffect = effectList[_rnd.Next(0, effectList.Count)];
+            var extraModifier = _rnd.Next(0, (int)Math.Round(2 * rarityMultiplier));
+            var newDmg = (int) Math.Round(baseEffect.BonusDamage * rarityMultiplier) +
+                         _rnd.Next(0, (int) Math.Round(extraModifier * rarityMultiplier));
+            var newHealing = (int) Math.Round(baseEffect.BonusHealing * rarityMultiplier) +
+                             _rnd.Next(0, (int) Math.Round(extraModifier * rarityMultiplier));
+            var newExtraHits = (int) Math.Round(baseEffect.ExtraHits * rarityMultiplier) +
+                               _rnd.Next(0, (int) Math.Round(extraModifier * rarityMultiplier));
+            return new Effect(baseEffect.EffectName, baseEffect.WeaponNameFix, newDmg, newHealing, newExtraHits);
         }
 
         public bool ValidateEffectIsUnique(List<Effect> effects, Effect generatedEffect)
         {
-            foreach (var effect in effects)
+            if (effects.Count != 0)
             {
-                return effect.BonusDamage != generatedEffect.BonusDamage || effect.BonusHealing != generatedEffect.BonusHealing || effect.ExtraHits != generatedEffect.ExtraHits;
+                foreach (var effect in effects)
+                {
+                    return effect.BonusDamage != generatedEffect.BonusDamage || effect.BonusHealing != generatedEffect.BonusHealing || effect.ExtraHits != generatedEffect.ExtraHits;
+                }
+
+                return false;
             }
 
-            return false;
+            return true;
         }
     }
 }
