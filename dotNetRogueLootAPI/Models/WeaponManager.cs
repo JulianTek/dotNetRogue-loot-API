@@ -25,12 +25,24 @@ namespace dotNetRogueLootAPI.Models
         {
             var type = GenerateWeaponType();
             var rarity = GenerateRarity();
+            var effects = _effectGenerator.GenerateEffects(rarity.AmountOfEffects, rarity.StatModMul);
             var stats = GenerateStats(type, rarity.StatModMul);
-            return new Weapon("test", type, stats, rarity,
-                _effectGenerator.GenerateEffects(rarity.AmountOfEffects, rarity.StatModMul),
+            return new Weapon(GenerateWeaponName(rarity, type, effects), type, stats, rarity,
+                effects,
                 GeneratePrice(stats["Coolness"], rarity.StatModMul, rarity.AmountOfEffects));
         }
 
+        public string GenerateWeaponName(WeaponRarity rarity, WeaponType type, List<Effect> effects)
+        {
+            var name = $"{rarity.RarityName}";
+            if (effects.Count != 0)
+            {
+                name = $"{name} {effects[_rnd.Next(0, effects.Count - 1)].WeaponNameFix}";
+            }
+
+            name = $"{name} {type.Name}";
+            return name;
+        }
         public WeaponRarity GenerateRarity()
         {
             // Converting it to a list will make tweaking values a lot easier, since I won't have to make any changes here
