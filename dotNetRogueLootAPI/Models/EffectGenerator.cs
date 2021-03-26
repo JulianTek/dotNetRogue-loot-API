@@ -20,6 +20,10 @@ namespace dotNetRogueLootAPI.Models
                 {
                     effects.Add(effect);
                 }
+                else
+                {
+                    i--;
+                }
             }
 
             return effects;
@@ -64,12 +68,17 @@ namespace dotNetRogueLootAPI.Models
 
         public bool ValidateEffectIsUnique(List<Effect> effects, Effect generatedEffect)
         {
-            foreach (var effect in effects)
+            if (effects.Count != 0)
             {
-                return effect.BonusDamage != generatedEffect.BonusDamage || effect.BonusHealing != generatedEffect.BonusHealing || effect.ExtraHits != generatedEffect.ExtraHits;
+                foreach (var effect in effects)
+                {
+                    return effect.BonusDamage != generatedEffect.BonusDamage || effect.BonusHealing != generatedEffect.BonusHealing || effect.ExtraHits != generatedEffect.ExtraHits;
+                }
+
+                return false;
             }
 
-            return false;
+            return true;
         }
     }
 }
