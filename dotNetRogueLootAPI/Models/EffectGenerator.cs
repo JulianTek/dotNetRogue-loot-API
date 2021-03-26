@@ -56,7 +56,7 @@ namespace dotNetRogueLootAPI.Models
             {
                 foreach (var effect in effects)
                 {
-                    return effect.BonusDamage != generatedEffect.BonusDamage || effect.BonusHealing != generatedEffect.BonusHealing || effect.ExtraHits != generatedEffect.ExtraHits;
+                    return effect.EffectName != generatedEffect.EffectName || effect.BonusDamage != generatedEffect.BonusDamage || effect.BonusHealing != generatedEffect.BonusHealing || effect.ExtraHits != generatedEffect.ExtraHits;
                 }
 
                 return false;
