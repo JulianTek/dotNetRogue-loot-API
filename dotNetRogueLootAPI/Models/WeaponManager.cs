@@ -2,42 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotNetRogueLootAPI.Models.Interfaces;
 
 namespace dotNetRogueLootAPI.Models
 {
     public class WeaponManager
     {
+        public WeaponManager(IWeaponRarityRepository rarity, IWeaponTypeRepository type)
+        {
+            _rarities = rarity.GetAllRarities().ToList();
+            _types = type.GetAllTypes().ToList();
+        }
+
         private readonly Random _rnd = new Random();
         private readonly EffectGenerator _effectGenerator = new EffectGenerator();
-        private readonly List<WeaponRarity> _rarities = new List<WeaponRarity>()
-        {
-            new WeaponRarity("Common", 66, 1, 0),
-            new WeaponRarity("Uncommon", 19, 1.5, 0),
-            new WeaponRarity("Rare", 10, 2, 1),
-            new WeaponRarity("Legendary", 4, 3.3, 2),
-            new WeaponRarity("Mythical", 1, 5, 4)
-        };
+        private readonly List<WeaponRarity> _rarities;
 
-        private readonly List<WeaponType> _types = new List<WeaponType>()
-        {
-            new WeaponType("Sword", 10, 10),
-            new WeaponType("Greatsword", 30, 2),
-            new WeaponType("Bow", 15, 20),
-            new WeaponType("Crossbow", 25,15),
-            new WeaponType("Battleaxe", 35, 1)
-        };
+        private readonly List<WeaponType> _types;
 
         public Weapon GenerateWeapon()
         {
-            WeaponType type = GenerateWeaponType();
-            WeaponRarity rarity = GenerateRarity();
-            return new Weapon("test", GenerateStats(type), rarity, _effectGenerator.GenerateEffects(_rnd.Next(rarity.AmountOfEffects, rarity.AmountOfEffects + 3), rarity.StatModMul));
+            var type = GenerateWeaponType();
+            var rarity = GenerateRarity();
+            var stats = GenerateStats(type, rarity.StatModMul);
+            return new Weapon("test", type, stats, rarity,
+                _effectGenerator.GenerateEffects(rarity.AmountOfEffects, rarity.StatModMul),
+                GeneratePrice(stats["Coolness"], rarity.StatModMul, rarity.AmountOfEffects));
         }
 
         public WeaponRarity GenerateRarity()
         {
             // Converting it to a list will make tweaking values a lot easier, since I won't have to make any changes here
-            var rarityChances = _rarities.Select(rarity => rarity.AppearChance).ToList();
+            var rarityChances = _rarities.Select(rarity => rarity.AppearChance).OrderBy(chance => chance).ToList();
 
             var rarityNum = _rnd.Next(1, 101);
 
@@ -45,15 +41,15 @@ namespace dotNetRogueLootAPI.Models
             {
                 return _rarities[0];
             }
-            if (rarityNum <= rarityChances[1])
+            if (rarityNum <= rarityChances[1] + rarityChances[0])
             {
                 return _rarities[1];
             }
-            if (rarityNum <= rarityChances[2])
+            if (rarityNum <= rarityChances[2] + rarityChances[1] + rarityChances[0])
             {
                 return _rarities[2];
             }
-            if (rarityNum <= rarityChances[3])
+            if (rarityNum <= rarityChances[3] + rarityChances[2] + rarityChances[1] + rarityChances[0])
             {
                 return _rarities[3];
             }
@@ -63,17 +59,36 @@ namespace dotNetRogueLootAPI.Models
 
         public WeaponType GenerateWeaponType()
         {
-            return _types[_rnd.Next(0, 5)];
+            return _types[_rnd.Next(0, _types.Count - 1)];
         }
 
-        public Dictionary<string, double> GenerateStats(WeaponType type)
+        public Dictionary<string, int> GenerateStats(WeaponType type, double raritymul)
         {
-            Dictionary<string, double> stats = new Dictionary<string, double>()
+            // Defense is a number between 1 and 50, when damage calculations are run these will be seen as a percentile reduction
+            // Currently still a random number, with everything getting equal chances. Eventually I want to make better rarity tied to better stats
+            var stats = new Dictionary<string, int>()
             {
-                {"Attack", type.Damage + _rnd.Next(-5, 6) },
-                {"Dodge", type.DodgeChance + _rnd.Next(-5, 4) }
+                {"Attack", (int)Math.Round(type.Damage + _rnd.Next(-5, 6) * raritymul) },
+                {"Dodge", (int)Math.Round(type.DodgeChance + _rnd.Next(-5, 4) * raritymul) },
+                {"Speed", _rnd.Next(10, 29) },
+                {"Defense", _rnd.Next(1, 51)},
+                {"Coolness", _rnd.Next(1, 4) }
             };
             return stats;
+        }
+
+        public int GeneratePrice(int coolness, double raritymul, int amountOfEffects)
+        {
+            var basePrice =(int) Math.Round(_rnd.Next(10, 20) * raritymul);
+            if (amountOfEffects > 1)
+            {
+                var modifiedPrice = basePrice * _rnd.Next(1, amountOfEffects);
+                return modifiedPrice * coolness;
+            }
+
+            return basePrice * coolness;
+
+
         }
     }
 }
