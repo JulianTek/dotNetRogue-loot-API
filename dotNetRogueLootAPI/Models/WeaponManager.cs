@@ -8,14 +8,15 @@ namespace dotNetRogueLootAPI.Models
 {
     public class WeaponManager
     {
-        public WeaponManager(IWeaponRarityRepository rarity, IWeaponTypeRepository type)
+        public WeaponManager(IWeaponRarityRepository rarity, IWeaponTypeRepository type, IEffectRepository effect)
         {
             _rarities = rarity.GetAllRarities().ToList();
             _types = type.GetAllTypes().ToList();
+            _effectGenerator = new EffectGenerator(effect);
         }
 
         private readonly Random _rnd = new Random();
-        private readonly EffectGenerator _effectGenerator = new EffectGenerator();
+        private readonly EffectGenerator _effectGenerator;
         private readonly List<WeaponRarity> _rarities;
 
         private readonly List<WeaponType> _types;

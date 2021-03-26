@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@ namespace dotNetRogueLootAPI.Models
             ExtraHits = extraHits;
         }
 
+        [Key]
         public string EffectName { get; private set; }
         public string WeaponNameFix { get; private set; }
         public int BonusDamage { get; private set; }
