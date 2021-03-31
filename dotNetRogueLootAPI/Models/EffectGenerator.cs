@@ -52,19 +52,18 @@ namespace dotNetRogueLootAPI.Models
 
         public bool ValidateEffectIsUnique(List<Effect> effects, Effect generatedEffect)
         {
+            var count = 0;
             if (effects.Count != 0)
             {
                 foreach (var effect in effects)
                 {
                     if (effect.EffectName != generatedEffect.EffectName)
                     {
-                        return true;
+                        count++;
                     }
-
-                    break;
                 }
 
-                return false;
+                return count == effects.Count;
             }
 
             return true;
