@@ -81,12 +81,16 @@ namespace dotNetRogueLootAPI.Models
             // Currently still a random number, with everything getting equal chances. Eventually I want to make better rarity tied to better stats
             var stats = new Dictionary<string, int>()
             {
-                {"Attack", (int)Math.Round(type.Damage + _rnd.Next(-5, 6) * raritymul) },
-                {"Dodge", (int)Math.Round(type.DodgeChance + _rnd.Next(-5, 4) * raritymul) },
+                {"Attack", (int)Math.Round((type.Damage + _rnd.Next(-5, 6)) * raritymul) },
+                {"Dodge", (int)Math.Round((type.DodgeChance + _rnd.Next(-5, 4)) * raritymul) },
                 {"Speed", _rnd.Next(10, 29) },
                 {"Defense", _rnd.Next(1, 51)},
                 {"Coolness", _rnd.Next(1, 4) }
             };
+            if (stats["Dodge"] < 0)
+            {
+                stats["Dodge"] = 0;
+            }
             return stats;
         }
 
