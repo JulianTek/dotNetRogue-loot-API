@@ -17,11 +17,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1
-     -name: get directory
-      working-directory: ../../dotNetRogueLootAPI/ 
-      run: pwd
     - name: Restore dependencies
-      working-directory: ../../dotNetRogueLootAPI/ 
+      working-directory: ./dotNetRogueLootAPI/ 
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
