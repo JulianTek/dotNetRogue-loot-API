@@ -18,9 +18,9 @@ jobs:
       with:
         dotnet-version: 3.1
     - name: Restore dependencies
-      working-directory: ./dotNetRogueLootAPI
       run: dotnet restore
     - name: Build
+      working-directory: ./dotNetRogueLootAPI
       run: dotnet build
     - name: Test
       run: dotnet test --no-build --verbosity normal
