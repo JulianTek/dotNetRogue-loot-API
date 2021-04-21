@@ -15,6 +15,8 @@ namespace dotNetRogueLootAPI
 
         }
 
+        public AppDbContext() { }
+
         public DbSet<WeaponType> WeaponTypes { get; set; }
         public DbSet<WeaponRarity> WeaponRarities { get; set; }
         public DbSet<Effect> Effects { get; set; }
