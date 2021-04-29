@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotNetRogueLootAPI", "dotNetRogueLootAPI.csproj", "{F87CFA24-DF00-4EFE-B15B-F794A6173783}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotNetRogueLootAPI", "dotnetRogueLootAPI/dotNetRogueLootAPI.csproj", "{F87CFA24-DF00-4EFE-B15B-F794A6173783}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotNetRogueLootAPI.Tests", "..\dotNetRogueLootAPI.Tests\dotNetRogueLootAPI.Tests.csproj", "{542DD12F-D6A4-4725-9DD3-42CDF7454C1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotNetRogueLootAPI.Tests", "dotNetRogueLootAPI.Tests\dotNetRogueLootAPI.Tests.csproj", "{542DD12F-D6A4-4725-9DD3-42CDF7454C1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
