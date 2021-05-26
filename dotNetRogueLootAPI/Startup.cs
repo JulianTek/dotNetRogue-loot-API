@@ -1,20 +1,14 @@
+using dotNetRogueLootAPI.Application.Interfaces;
+using dotNetRogueLootAPI.Application.Repositories;
+using dotNetRogueLootAPI.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using dotNetRogueLootAPI.Models;
-using dotNetRogueLootAPI.Models.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
-namespace dotNetRogueLootAPI
+namespace dotNetRogueLootAPI.Presentation
 {
     public class Startup
     {
@@ -29,7 +23,7 @@ namespace dotNetRogueLootAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WeaponsDb")));
+            services.AddDbContextPool<IAppDbContext, AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WeaponsDb")));
             services.AddScoped<IWeaponTypeRepository, WeaponTypeRepository>();
             services.AddScoped<IWeaponRarityRepository, WeaponRarityRepository>();
             services.AddScoped<IEffectRepository, EffectRepository>();

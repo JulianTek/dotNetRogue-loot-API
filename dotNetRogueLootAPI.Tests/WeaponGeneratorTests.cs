@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using dotNetRogueLootAPI.Models;
-using dotNetRogueLootAPI.Models.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using dotNetRogueLootAPI.Application;
+using dotNetRogueLootAPI.Application.Interfaces;
+using dotNetRogueLootAPI.Domain.Models;
 using Moq;
 using Xunit;
 

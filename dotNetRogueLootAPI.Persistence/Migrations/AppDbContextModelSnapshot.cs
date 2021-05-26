@@ -2,17 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using dotNetRogueLootAPI;
+using dotNetRogueLootAPI.Persistence;
 
-namespace dotNetRogueLootAPI.Migrations
+namespace dotNetRogueLootAPI.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210326085104_effects")]
-    partial class effects
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,7 +18,7 @@ namespace dotNetRogueLootAPI.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("dotNetRogueLootAPI.Models.Effect", b =>
+            modelBuilder.Entity("dotNetRogueLootAPI.Domain.Models.Effect", b =>
                 {
                     b.Property<string>("EffectName")
                         .HasColumnType("nvarchar(450)");
@@ -42,7 +40,7 @@ namespace dotNetRogueLootAPI.Migrations
                     b.ToTable("Effects");
                 });
 
-            modelBuilder.Entity("dotNetRogueLootAPI.Models.WeaponRarity", b =>
+            modelBuilder.Entity("dotNetRogueLootAPI.Domain.Models.WeaponRarity", b =>
                 {
                     b.Property<string>("RarityName")
                         .HasColumnType("nvarchar(450)");
@@ -61,7 +59,7 @@ namespace dotNetRogueLootAPI.Migrations
                     b.ToTable("WeaponRarities");
                 });
 
-            modelBuilder.Entity("dotNetRogueLootAPI.Models.WeaponType", b =>
+            modelBuilder.Entity("dotNetRogueLootAPI.Domain.Models.WeaponType", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");

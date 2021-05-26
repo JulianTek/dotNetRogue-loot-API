@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using dotNetRogueLootAPI.Models.Interfaces;
+using dotNetRogueLootAPI.Application.Interfaces;
+using dotNetRogueLootAPI.Domain.Models;
 
-namespace dotNetRogueLootAPI.Models
+namespace dotNetRogueLootAPI.Application
 {
     public class EffectGenerator
     {

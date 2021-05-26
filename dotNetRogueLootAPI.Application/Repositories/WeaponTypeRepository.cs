@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using dotNetRogueLootAPI.Models.Interfaces;
+﻿using System.Collections.Generic;
+using dotNetRogueLootAPI.Application.Interfaces;
+using dotNetRogueLootAPI.Domain.Models;
 
-namespace dotNetRogueLootAPI.Models
+namespace dotNetRogueLootAPI.Application.Repositories
 {
     public class WeaponTypeRepository : IWeaponTypeRepository
     {
-        public WeaponTypeRepository(AppDbContext context)
+        public WeaponTypeRepository(IAppDbContext context)
         {
             _context = context;
         }
-        private readonly AppDbContext _context;
+        private readonly IAppDbContext _context;
 
         public IEnumerable<WeaponType> GetAllTypes()
         {

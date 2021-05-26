@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using dotNetRogueLootAPI.Models;
-using dotNetRogueLootAPI.Models.Interfaces;
+using dotNetRogueLootAPI.Application;
+using dotNetRogueLootAPI.Application.Interfaces;
+using dotNetRogueLootAPI.Domain.Models;
 using Moq;
 using Xunit;
 

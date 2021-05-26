@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using dotNetRogueLootAPI;
+using dotNetRogueLootAPI.Persistence;
 
-namespace dotNetRogueLootAPI.Migrations
+namespace dotNetRogueLootAPI.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210324110132_TypesAndRaritiesMigration")]
-    partial class TypesAndRaritiesMigration
+    [Migration("20210526082342_newMigrations")]
+    partial class newMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,29 @@ namespace dotNetRogueLootAPI.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("dotNetRogueLootAPI.Models.WeaponRarity", b =>
+            modelBuilder.Entity("dotNetRogueLootAPI.Domain.Models.Effect", b =>
+                {
+                    b.Property<string>("EffectName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("BonusDamage")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BonusHealing")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExtraHits")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WeaponNameFix")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EffectName");
+
+                    b.ToTable("Effects");
+                });
+
+            modelBuilder.Entity("dotNetRogueLootAPI.Domain.Models.WeaponRarity", b =>
                 {
                     b.Property<string>("RarityName")
                         .HasColumnType("nvarchar(450)");
@@ -39,7 +61,7 @@ namespace dotNetRogueLootAPI.Migrations
                     b.ToTable("WeaponRarities");
                 });
 
-            modelBuilder.Entity("dotNetRogueLootAPI.Models.WeaponType", b =>
+            modelBuilder.Entity("dotNetRogueLootAPI.Domain.Models.WeaponType", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
