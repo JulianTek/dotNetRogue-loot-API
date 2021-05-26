@@ -1,4 +1,5 @@
-﻿using dotNetRogueLootAPI.Application;
+﻿using System.Threading.Tasks;
+using dotNetRogueLootAPI.Application;
 using dotNetRogueLootAPI.Application.Interfaces;
 using dotNetRogueLootAPI.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +17,10 @@ namespace dotNetRogueLootAPI.Presentation.Controllers
         }
         private readonly WeaponManager _weaponManager;
 
-        public Weapon GenerateRandomWeapon()
+        [HttpGet]
+        public ActionResult<Weapon> GenerateRandomWeapon()
         {
-            return _weaponManager.GenerateWeapon();
+            return Ok(_weaponManager.GenerateWeapon());
         }
     }
 }
