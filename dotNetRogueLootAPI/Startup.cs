@@ -12,9 +12,11 @@ namespace dotNetRogueLootAPI.Presentation
 {
     public class Startup
     {
+        private readonly bool _isTesting = false;
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _isTesting = env.IsEnvironment("Testing");
         }
 
         public IConfiguration Configuration { get; }
@@ -23,7 +25,10 @@ namespace dotNetRogueLootAPI.Presentation
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContextPool<IAppDbContext, AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WeaponsDb")));
+            if (!_isTesting)
+            {
+                services.AddDbContextPool<IAppDbContext, AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WeaponsDb")));
+            }
             services.AddScoped<IWeaponTypeRepository, WeaponTypeRepository>();
             services.AddScoped<IWeaponRarityRepository, WeaponRarityRepository>();
             services.AddScoped<IEffectRepository, EffectRepository>();

@@ -40,13 +40,5 @@ namespace dotNetRogueLootAPI.IntegrationTests.Common
         {
             _serviceScope?.Dispose();
         }
-
-        protected async Task EmptyDatabase()
-        {
-            if (GetDbContext() is DbContext dbContext)
-            {
-                await dbContext.Database.EnsureDeletedAsync();
-            }
-        }
     }
 }
