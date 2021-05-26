@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotNetRogueLootAPI", "dotNetRogueLootAPI\dotNetRogueLootAPI.csproj", "{F87CFA24-DF00-4EFE-B15B-F794A6173783}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotNetRogueLootAPI.Presentation", "dotNetRogueLootAPI\dotNetRogueLootAPI.Presentation.csproj", "{F87CFA24-DF00-4EFE-B15B-F794A6173783}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotNetRogueLootAPI.Tests", "dotNetRogueLootAPI.Tests\dotNetRogueLootAPI.Tests.csproj", "{542DD12F-D6A4-4725-9DD3-42CDF7454C1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotNetRogueLootAPI.Tests", "dotNetRogueLootAPI.Tests\dotNetRogueLootAPI.Tests.csproj", "{542DD12F-D6A4-4725-9DD3-42CDF7454C1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotNetRogueLootAPI.Application", "dotNetRogueLootAPI.Application\dotNetRogueLootAPI.Application.csproj", "{8D6A8ED2-8EC3-460D-B96A-190FDC35B9E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotNetRogueLootAPI.Domain", "dotNetRogueLootAPI.Domain\dotNetRogueLootAPI.Domain.csproj", "{9B0E08CA-6B20-47EF-A7BF-8D34C43382F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotNetRogueLootAPI.Persistence", "dotNetRogueLootAPI.Persistence\dotNetRogueLootAPI.Persistence.csproj", "{D94B3BC6-35B5-46D2-B665-803EC3FEA504}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotNetRogueLootAPI.IntegrationTests", "dotNetRogueLootAPI.IntegrationTests\dotNetRogueLootAPI.IntegrationTests.csproj", "{23DCE1A6-1A0E-45DA-ABD6-2C6BD1960884}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,22 @@ Global
 		{542DD12F-D6A4-4725-9DD3-42CDF7454C1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{542DD12F-D6A4-4725-9DD3-42CDF7454C1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{542DD12F-D6A4-4725-9DD3-42CDF7454C1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D6A8ED2-8EC3-460D-B96A-190FDC35B9E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D6A8ED2-8EC3-460D-B96A-190FDC35B9E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D6A8ED2-8EC3-460D-B96A-190FDC35B9E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D6A8ED2-8EC3-460D-B96A-190FDC35B9E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B0E08CA-6B20-47EF-A7BF-8D34C43382F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B0E08CA-6B20-47EF-A7BF-8D34C43382F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B0E08CA-6B20-47EF-A7BF-8D34C43382F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B0E08CA-6B20-47EF-A7BF-8D34C43382F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D94B3BC6-35B5-46D2-B665-803EC3FEA504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D94B3BC6-35B5-46D2-B665-803EC3FEA504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D94B3BC6-35B5-46D2-B665-803EC3FEA504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D94B3BC6-35B5-46D2-B665-803EC3FEA504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23DCE1A6-1A0E-45DA-ABD6-2C6BD1960884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23DCE1A6-1A0E-45DA-ABD6-2C6BD1960884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23DCE1A6-1A0E-45DA-ABD6-2C6BD1960884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23DCE1A6-1A0E-45DA-ABD6-2C6BD1960884}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

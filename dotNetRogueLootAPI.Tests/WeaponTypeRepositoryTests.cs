@@ -4,7 +4,9 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using dotNetRogueLootAPI.Models;
+using dotNetRogueLootAPI.Application.Repositories;
+using dotNetRogueLootAPI.Domain.Models;
+using dotNetRogueLootAPI.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 

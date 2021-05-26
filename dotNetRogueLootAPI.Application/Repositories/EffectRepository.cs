@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using dotNetRogueLootAPI.Models.Interfaces;
+using dotNetRogueLootAPI.Application.Interfaces;
+using dotNetRogueLootAPI.Domain.Models;
 
-namespace dotNetRogueLootAPI.Models
+namespace dotNetRogueLootAPI.Application.Repositories
 {
     public class EffectRepository : IEffectRepository
     {
-        private readonly AppDbContext _context;
-        public EffectRepository(AppDbContext context)
+        private readonly IAppDbContext _context;
+        public EffectRepository(IAppDbContext context)
         {
             _context = context;
         }

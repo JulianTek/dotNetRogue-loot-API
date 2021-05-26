@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using dotNetRogueLootAPI.Domain.Models;
 
-namespace dotNetRogueLootAPI.Models.Interfaces
+namespace dotNetRogueLootAPI.Application.Interfaces
 {
     public interface IWeaponTypeRepository
     {

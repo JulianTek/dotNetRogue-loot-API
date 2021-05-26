@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using dotNetRogueLootAPI.Models;
+using dotNetRogueLootAPI.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace dotNetRogueLootAPI
+namespace dotNetRogueLootAPI.Application.Interfaces
 {
-    public class AppDbContext : DbContext
+    public interface IAppDbContext : IDbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options)
-            : base(options)
-        {
-
-        }
-
         public DbSet<WeaponType> WeaponTypes { get; set; }
         public DbSet<WeaponRarity> WeaponRarities { get; set; }
         public DbSet<Effect> Effects { get; set; }
