@@ -11,7 +11,7 @@ namespace dotNetRogueLootAPI.Persistence.Migrations
                 columns: table => new
                 {
                     EffectName = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    WeaponNameFix = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WeaponNameFix = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     BonusDamage = table.Column<int>(type: "int", nullable: false),
                     BonusHealing = table.Column<int>(type: "int", nullable: false),
                     ExtraHits = table.Column<int>(type: "int", nullable: false)

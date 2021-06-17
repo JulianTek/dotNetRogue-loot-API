@@ -27,7 +27,7 @@ namespace dotNetRogueLootAPI.Presentation
             services.AddControllers();
             if (!_isTesting)
             {
-                services.AddDbContextPool<IAppDbContext, AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WeaponsDb")));
+                services.AddDbContextPool<IAppDbContext, AppDbContext>(options => options.UseMySql("Server=localhost;Database=dotnetroguelootdb;Uid=admin;Pwd=root;connect timeout=3600", ServerVersion.AutoDetect("Server=localhost;Database=dotnetroguelootdb;Uid=admin;Pwd=root;connect timeout=3600")));
             }
             services.AddScoped<IWeaponTypeRepository, WeaponTypeRepository>();
             services.AddScoped<IWeaponRarityRepository, WeaponRarityRepository>();
