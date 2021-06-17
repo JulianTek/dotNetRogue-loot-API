@@ -27,7 +27,7 @@ namespace dotNetRogueLootAPI.Presentation
             services.AddControllers();
             if (!_isTesting)
             {
-                services.AddDbContextPool<IAppDbContext, AppDbContext>(options => options.UseMySql("Server=localhost;Database=dotnetroguelootdb;Uid=admin;Pwd=root;connect timeout=3600", ServerVersion.AutoDetect("Server=localhost;Database=dotnetroguelootdb;Uid=admin;Pwd=root;connect timeout=3600")));
+                services.AddDbContextPool<IAppDbContext, AppDbContext>(options => options.UseMySql("Server=dotnetroguedb; Database=dotnetroguelootdb; Uid=admin; Pwd=root;", ServerVersion.AutoDetect("Server=dotnetroguedb; Database=dotnetroguelootdb; Uid=admin; Pwd=root;")));
             }
             services.AddScoped<IWeaponTypeRepository, WeaponTypeRepository>();
             services.AddScoped<IWeaponRarityRepository, WeaponRarityRepository>();
@@ -41,8 +41,6 @@ namespace dotNetRogueLootAPI.Presentation
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
