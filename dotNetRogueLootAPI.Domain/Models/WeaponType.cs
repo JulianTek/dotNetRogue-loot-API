@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace dotNetRogueLootAPI.Models
+namespace dotNetRogueLootAPI.Domain.Models
 {
     public class WeaponType
     {
@@ -13,7 +10,13 @@ namespace dotNetRogueLootAPI.Models
             Damage = damage;
             DodgeChance = dodgeChance;
         }
+
+        public WeaponType()
+        {
+            
+        }
         
+        [Key]
         public string Name { get; private set; }
         public int Damage { get; private set; }
         public int DodgeChance { get; private set; }

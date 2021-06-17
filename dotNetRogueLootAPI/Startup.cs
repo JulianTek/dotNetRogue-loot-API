@@ -1,23 +1,22 @@
+using dotNetRogueLootAPI.Application.Interfaces;
+using dotNetRogueLootAPI.Application.Repositories;
+using dotNetRogueLootAPI.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace dotNetRogueLootAPI
+namespace dotNetRogueLootAPI.Presentation
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly bool _isTesting = false;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _isTesting = env.IsEnvironment("Testing");
         }
 
         public IConfiguration Configuration { get; }
@@ -26,6 +25,13 @@ namespace dotNetRogueLootAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            if (!_isTesting)
+            {
+                services.AddDbContextPool<IAppDbContext, AppDbContext>(options => options.UseMySql("Server=dotnetroguedb; Database=dotnetroguelootdb; Uid=admin; Pwd=root;", ServerVersion.AutoDetect("Server=dotnetroguedb; Database=dotnetroguelootdb; Uid=admin; Pwd=root;")));
+            }
+            services.AddScoped<IWeaponTypeRepository, WeaponTypeRepository>();
+            services.AddScoped<IWeaponRarityRepository, WeaponRarityRepository>();
+            services.AddScoped<IEffectRepository, EffectRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,8 +41,6 @@ namespace dotNetRogueLootAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
